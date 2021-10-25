@@ -4,6 +4,9 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.update.UpdateRequest;
@@ -118,5 +121,15 @@ public class ElasticsearchJavaUpdateAndDelete {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Delete a document
+        DeleteRequest deleteRequest = new DeleteRequest("employees","1");
+        DeleteResponse deleteResponse = client.delete(deleteRequest, RequestOptions.DEFAULT);
+        System.out.println("response id: "+deleteResponse.getId());
+
+        //Delete an index
+        DeleteIndexRequest requestDeleteIndex = new DeleteIndexRequest("employees");
+        client.indices().delete(requestDeleteIndex, RequestOptions.DEFAULT);
+        System.out.println("Index is deleted ");
     }
 }
