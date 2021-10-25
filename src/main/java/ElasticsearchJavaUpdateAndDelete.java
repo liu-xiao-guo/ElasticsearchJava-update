@@ -80,28 +80,28 @@ public class ElasticsearchJavaUpdateAndDelete {
         System.out.println("response id: " + indexResponse3.getId());
         System.out.println(indexResponse3.getResult().name());
 
-        // Method 5: use index API to update via Map
-        Map<String, Object> updateMap5 = new HashMap<String, Object>();
-        updateMap5.put("field1","field1");
-        updateMap5.put("field2","field2");
-        updateMap5.put("field3", 30);
-        IndexRequest request5 = new IndexRequest("employees");
-        request5.id("2");
-        request5.source(updateMap5);
-        IndexResponse indexResponseUpdate5 = client.index(request5, RequestOptions.DEFAULT);
-        System.out.println("response id: " + indexResponseUpdate5.getId());
-        System.out.println(indexResponseUpdate5.getResult().name());
+        // Method 4: use index API to update via Map
+        Map<String, Object> updateMap4 = new HashMap<String, Object>();
+        updateMap4.put("field1","field1");
+        updateMap4.put("field2","field2");
+        updateMap4.put("field3", 30);
+        IndexRequest request4 = new IndexRequest("employees");
+        request4.id("2");
+        request4.source(updateMap4);
+        IndexResponse indexResponseUpdate4 = client.index(request4, RequestOptions.DEFAULT);
+        System.out.println("response id: " + indexResponseUpdate4.getId());
+        System.out.println(indexResponseUpdate4.getResult().name());
 
-        // Method 6: Use a PoJo Java object
+        // Method 5: Use a PoJo Java object
         Employee employee = new Employee("myid", "Martin");
-        IndexRequest indexRequest6 = new IndexRequest("employees");
-        indexRequest6.id("1");
-        indexRequest6.source(new ObjectMapper().writeValueAsString(employee), XContentType.JSON);
-        IndexResponse indexResponse5 = client.index(indexRequest6, RequestOptions.DEFAULT);
+        IndexRequest indexRequest5 = new IndexRequest("employees");
+        indexRequest5.id("1");
+        indexRequest5.source(new ObjectMapper().writeValueAsString(employee), XContentType.JSON);
+        IndexResponse indexResponse5 = client.index(indexRequest5, RequestOptions.DEFAULT);
         System.out.println("response id: "+indexResponse5.getId());
         System.out.println("response name: "+indexResponse5.getResult().name());
 
-        // Method 7: Update it with UpdateByQuery
+        // Method 6: Update it with UpdateByQuery
         Map<String, Object> updateMap6 = new HashMap<String, Object>();
         updateMap6.put("id","66");
         updateMap6.put("name","Bill");
